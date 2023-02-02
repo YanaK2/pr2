@@ -5,6 +5,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    //'logo'=> '',
     'name'=>'Сайт городского планирования',
     'language'=>'ru-RU',
     'basePath' => dirname(__DIR__),

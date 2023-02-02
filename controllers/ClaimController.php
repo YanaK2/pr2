@@ -7,6 +7,7 @@ use app\models\ClaimSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ClaimController implements the CRUD actions for Claim model.
@@ -70,7 +71,14 @@ class ClaimController extends Controller
         $model = new Claim();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            $model->load($this->request->post());
+
+            $model->photobefore=UploadedFile::getInstance($model,'photobefore');
+            $file_name='/claimImage/' . \Yii::$app->getSecurity()->generateRandomString(50). '.' . $model->photobefore->extension;
+            $model->photobefore->saveAs(\Yii::$app->basePath . $file_name);
+            $model->photobefore=$file_name;
+
+            if ($model->save(false)) {
                 return $this->redirect(['view', 'id_claim' => $model->id_claim]);
             }
         } else {
@@ -93,13 +101,24 @@ class ClaimController extends Controller
     {
         $model = $this->findModel($id_claim);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id_claim' => $model->id_claim]);
-        }
+        if ($this->request->isPost) {
+            $model->load($this->request->post());
+            $model->photobefore=UploadedFile::getInstance($model,'photobefore');
+            $file_name='/claimImage/' . \Yii::$app->getSecurity()->generateRandomString(50). '.' . $model->photobefore->extension;
+            $model->photobefore->saveAs(\Yii::$app->basePath . $file_name);
+            $model->photobefore=$file_name;
 
+            $model->photoafter=UploadedFile::getInstance($model,'photoafter');
+            $file_name='/claimImage/' . \Yii::$app->getSecurity()->generateRandomString(50). '.' . $model->photoafter->extension;
+            $model->photoafter->saveAs(\Yii::$app->basePath . $file_name);
+            $model->photoafter=$file_name;
+ $model->save(false);
+ return $this->redirect(['view', 'id_claim' => $model->id_claim]);
+ }
         return $this->render('update', [
-            'model' => $model,
-        ]);
+ 'model' => $model,
+
+            ]);
     }
 
     /**

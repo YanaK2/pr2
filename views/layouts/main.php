@@ -33,7 +33,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     <?php
      if (Yii::$app->user->isGuest){
         $items=[
-            ['label' => 'О нас', 'url' => ['/site/about']],
+           // ['label' => 'Главная', 'url' => ['/site/about']],
             ['label' => 'Регистрация', 'url' => ['/user/create']],
             ['label' => 'Авторизация', 'url' => ['/site/login']]
         ];}
@@ -49,7 +49,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
             :
             ($items=[
-                ['label' => 'О нас', 'url' => ['/site/about']],
+             //   ['label' => 'Главная', 'url' => ['/site/about']],
                 ['label' => 'Личный кабинет', 'url' => ['/user/view?id_user='.Yii::$app->user->identity->id_user]],
                 ['label' => 'Подать заявку', 'url' => ['/claim/create']],
                 ['label' => 'Заявки', 'url' => ['/claim/index?ClaimSearch[id_claim]=&ClaimSearch[id_user]='.Yii::$app->user->identity->id_user]],
@@ -66,9 +66,10 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             . '</li>');
     }
     NavBar::begin([
+        'brandImage' => '../logo/logo.png',
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
-        'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark
+        'options' => ['class' => 'navbar-expand-md navbar-black bg-success
 fixed-top']
     ]);
     echo
@@ -79,7 +80,7 @@ fixed-top']
     NavBar::end();
     ?>
 </header>
-
+<br>
 <main id="main" class="flex-shrink-0" role="main">
     <div class="container">
         <?php if (!empty($this->params['breadcrumbs'])): ?>

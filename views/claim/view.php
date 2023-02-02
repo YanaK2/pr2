@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /** @var app\models\Claim $model */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Claims', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Заявки', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -29,11 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id_claim',
-            'id_user',
+            //'id_claim',
+            //'id_user',
             'name',
             'discr',
-            'id_cat',
+            ['attribute'=>'Категория', 'value'=> function($data){return
+                $data->getCat()->One()->name;}],
             'photobefore',
             'time',
             'status',
