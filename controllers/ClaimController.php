@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use Yii;
 
 /**
  * ClaimController implements the CRUD actions for Claim model.
@@ -69,7 +70,10 @@ class ClaimController extends Controller
     public function actionCreate()
     {
         $model = new Claim();
-
+        if (Yii::$app->user->isGuest){$this->redirect(['site/login']);}
+        else{$model->id_user = Yii::$app->user->identity->id_user;}
+        
+       
         if ($this->request->isPost) {
             $model->load($this->request->post());
 

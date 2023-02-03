@@ -15,9 +15,11 @@ use yii\widgets\ActiveForm;
     $li[$category->id_cat]=$category->name;
     }?>
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php
+    //die('jjjjjjj');
+    $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_user')->textInput() ?>
+    <!--?= $form->field($model, 'id_user')->textInput() ?-->
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
@@ -32,11 +34,12 @@ use yii\widgets\ActiveForm;
 
     <br>
 
-    <?= $form->field($model, 'status')->dropDownList([ 'Новая' => 'Новая', 'Решена' => 'Решена', 'Отклонена' => 'Отклонена', ], ['prompt' => '']) ?>
+    <?= Yii::$app->user->identity->is_admin==1 ? $form->field($model, 'status')->dropDownList([ 'Новая' => 'Новая', 'Решена' => 'Решена', 'Отклонена' => 'Отклонена', ], ['prompt' => '']) : 
+        ''?>
 
     <br>
 
-    <?= $form->field($model, 'photoafter')->fileInput() ?>
+    <?=  Yii::$app->user->identity->is_admin==1 ? $form->field($model, 'photoafter')->fileInput() : '' ?>
     <br>
 
     <div class="form-group">

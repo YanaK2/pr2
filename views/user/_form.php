@@ -30,7 +30,7 @@ use yii\widgets\Pjax;
 
     <?= $form->field($model, 'agree')->checkbox() ?>
 
-    <!--?= $form->field($model, 'is_admin')->textInput() ?-->
+    <?=  Yii::$app->user->identity->is_admin==1 ? $form->field($model, 'is_admin')->textInput() : ''?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

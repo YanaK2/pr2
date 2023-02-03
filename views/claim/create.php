@@ -1,12 +1,15 @@
 <?php
 
 use yii\helpers\Html;
+use app\models\User;
+use yii\web\IdentityInterface;
+
 
 /** @var yii\web\View $this */
 /** @var app\models\Claim $model */
 
-$this->title = 'Create Claim';
-$this->params['breadcrumbs'][] = ['label' => 'Claims', 'url' => ['index']];
+$this->title = 'Подать заявку';
+$this->params['breadcrumbs'][] = ['label' => 'Заявки'];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="claim-create">
@@ -16,5 +19,4 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
-
 </div>
