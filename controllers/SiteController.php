@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Claim;
 
 class SiteController extends Controller
 {
@@ -75,6 +76,8 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
+        
+
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
@@ -124,5 +127,15 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionAdmin()
+    {
+        return $this->render('admin');
+    }
+
+    public function actionCounter(){
+        $claims=Claim::find()->where(['status'=>'Решена'])->orderBy(['time'=>SORT_DESC])->all();
+        return Yii::$app->response->content = count($claims);
     }
 }

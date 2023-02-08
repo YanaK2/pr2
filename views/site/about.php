@@ -13,8 +13,12 @@ use yii\bootstrap5;
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'Решение городских проблем';
-//$this->params['breadcrumbs'][] = $this->title;
+
 ?>
+<div>
+        <h1 id="counter" class="prettyfont" >Счетчик скоро обновится</h1>
+        <input type="button" class="btn btn-success" value="Разрешить звуковые уведомления">
+</div>
 
 <?php $claims=Claim::find()->where(['status'=>'Решена'])->orderBy(['time'=>SORT_DESC])->limit(4)->all();
 echo "<div class='d-flex flex-row flex-wrap justify-content-start align-items-end'>";
@@ -26,7 +30,11 @@ foreach ($claims as $claim){
 class='card-img-top' style='height: 300px; width: 300px;' alt='image'></a>
  <div class='card-body'>
  <h5 class='card-title'>{$claim->name}</h5>
- <p >{$claim->discr}</p>";
+
+ <p >{$claim->time}</p>
+ <p >{$claim->getCat()->One()->name}</p>
+ "
+ ;
         
         echo "</div>
 </div>";
@@ -34,6 +42,8 @@ class='card-img-top' style='height: 300px; width: 300px;' alt='image'></a>
 echo "</div>";
 ?>
 <script>
+
+var i=0;
 
 function hover(el){
 
@@ -46,5 +56,25 @@ function back(el){
 el.src=el.dataset.after;
 
 }
+ 
+function updateCounter(){
 
+        $.ajax({
+  type: 'GET',
+  url:'<?= Url::toRoute('/site/counter')?>',
+  dataType: 'text',
+  success: function(response){
+        if (i != response){
+
+                var a = new Audio('/Audio/counter.mp3');
+                a.play();
+                i=response;
+        }
+        $('#counter').html('Решено заявок: ' + response)
+  }
+});
+
+}
+
+setInterval(updateCounter,3000);
 </script>

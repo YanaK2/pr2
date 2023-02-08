@@ -24,6 +24,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <html lang="<?= Yii::$app->language ?>" class="h-100">
 <head>
     <title><?= Html::encode($this->title) ?></title>
+    
     <?php $this->head() ?>
 </head>
 <body class="d-flex flex-column h-100">
@@ -40,7 +41,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     else {
         Yii::$app->user->identity->is_admin==1 ?
             ( $items=[
-              
+                ['label' => 'Панель администратора', 'url' => ['/site/admin']],
                 ['label' => 'Просмотр заявок', 'url' => ['/claim/index']],
                 ['label' => 'Управление категориями', 'url' => ['/category/index']],
                 ['label' => 'Где нас найти', 'url' => ['/site/contact']],
@@ -91,7 +92,7 @@ fixed-top']
     </div>
 </main>
 
-<footer id="footer" class="mt-auto py-3 bg-success">
+<footer id="footer" class="mt-auto py-3 ">
     <div class="container">
         <div class="row text-muted">
             <div class="col-md-6 text-center text-md-start">&copy; My Company <?= date('Y') ?></div>
